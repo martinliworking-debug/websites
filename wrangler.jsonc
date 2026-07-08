@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "websites",
+  "compatibility_date": "2026-07-08",
+  "main": "worker.js",
+  "assets": {
+    "directory": "p3575-port-kembla",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  }
+}
