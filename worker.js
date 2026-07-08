@@ -12,6 +12,20 @@ async function tokenFor(pw) {
   return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
+// Serve a static asset, but force HTML documents to revalidate so a redeploy
+// is picked up immediately (avoids stale cached dashboards). Images keep their
+// default caching for speed.
+async function serveAsset(request, env) {
+  const res = await env.ASSETS.fetch(request);
+  const ct = res.headers.get("Content-Type") || "";
+  if (ct.includes("text/html")) {
+    const h = new Headers(res.headers);
+    h.set("Cache-Control", "no-cache");
+    return new Response(res.body, { status: res.status, statusText: res.statusText, headers: h });
+  }
+  return res;
+}
+
 function loginPage(msg) {
   const err = msg ? `<p class="err">${msg}</p>` : "";
   const html = `<!doctype html><html><head><meta charset="utf-8">
@@ -76,7 +90,7 @@ export default {
       try {
         const decoded = atob(auth.slice(6));
         if (decoded.slice(decoded.indexOf(":") + 1) === expected) {
-          return env.ASSETS.fetch(request);
+          return serveAsset(request, env);
         }
       } catch (e) { /* fall through */ }
     }
