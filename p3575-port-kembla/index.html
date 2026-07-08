@@ -920,7 +920,7 @@ function exportWorkbook() {
       var iframe = document.getElementById('iframe-' + cfg.srcKey);
       if (iframe && window.DASH_SRC && window.DASH_SRC[cfg.srcKey]) {
         if (cfg.srcKey === 'deck') {
-          var blob = new Blob([window.DASH_SRC[cfg.srcKey]], { type: 'text/html' });
+          var __h = window.DASH_SRC[cfg.srcKey], __b = '<base href="' + location.origin + '/">'; __h = /<head[^>]*>/i.test(__h) ? __h.replace(/<head[^>]*>/i, '$&' + __b) : __b + __h; var blob = new Blob([__h], { type: 'text/html' });
           iframe.src = URL.createObjectURL(blob);
         } else {
           iframe.srcdoc = window.DASH_SRC[cfg.srcKey];
