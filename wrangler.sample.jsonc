@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ason-dashboards-sample",
+  "compatibility_date": "2026-07-08",
+  "main": "worker.sample.js",
+  "assets": {
+    "directory": "sample-dashboard",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  }
+}
