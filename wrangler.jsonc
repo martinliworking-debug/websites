@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "ason-dashboards-port-kembla",
+  "name": "websites",
   "compatibility_date": "2026-07-08",
   "main": "worker.js",
   "assets": {
